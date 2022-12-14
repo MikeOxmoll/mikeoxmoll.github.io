@@ -95,6 +95,10 @@ const UploadMediaPage:React.FC = (props) => {
         return returnStr;
     }
 
+    function randomNumberInRange(min: number, max: number ) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
     const uploadUrl = uploadType==="video" ? buildMediaVideoUrl() : buildMediaImageUrl()
     const onVideoUpload = (meta:any, file:any, status:string) =>{
         if(status === 'done' && meta.duration && meta.uploadedDate && meta.name && ressourceValues){
@@ -107,7 +111,7 @@ const UploadMediaPage:React.FC = (props) => {
                 categoryIds:ressourceValues.categoryIds,
                 isPrivate:false,
                 fileName:meta.name,
-                nbViews:1000,//TODO-
+                nbViews:randomNumberInRange(1000, 9000000),
                 idThumbnailImage:getFileName(meta.name),
                 duration:meta.duration,
                 uploadDate:Date.now(),
