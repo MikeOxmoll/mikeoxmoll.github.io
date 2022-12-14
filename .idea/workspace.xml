@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="536e1255-b313-469c-8a03-34b6aed7732e" name="Changes" comment="init" />
+    <list default="true" id="536e1255-b313-469c-8a03-34b6aed7732e" name="Changes" comment="init">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset-manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logo512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/main.32ddd475.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/main.32ddd475.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/main.9e605a47.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/main.9e605a47.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/main.9e605a47.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/media/SearchIcon.1e6150ee1d3d49b78f59b578241617b8.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/media/camera.07bd89c7ae24778db37c0814d024e7c1.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/media/eye.d32e50f7cd3e354566a0dd0fca855d20.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/media/logo.9553f068d802b80f26f1df959cb0c431.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/media/star.59a3c4f1b4293955fac63452d73167d4.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/media/thumbs-up.047c651992c91d8c6196f28f89837de0.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/media/upload.dbb56ab078ba983f0828d3c0c1ca6000.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/media/video-camera.88e29edc4cc8c850f7ba616172e4e59c.svg" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -69,6 +94,7 @@
       <workItem from="1670843635044" duration="5000" />
       <workItem from="1670895255153" duration="470000" />
       <workItem from="1670957339825" duration="750000" />
+      <workItem from="1670983010417" duration="1247000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1670806255489</created>
@@ -98,7 +124,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670895713202</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="init">
+      <created>1670983210498</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1670983210498</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

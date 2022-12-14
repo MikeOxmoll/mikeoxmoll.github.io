@@ -1,6 +1,7 @@
 {
   "name": "bouffonhub",
   "version": "0.1.0",
+  "homepage": "https://mikeoxmoll.github.io",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.0",
@@ -29,6 +30,8 @@
     "yup": "^0.32.11"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -55,6 +58,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.20.5",
     "autoprefixer": "^10.4.13",
+    "gh-pages": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
     "js-cookie": "^3.0.1",
     "postcss": "^8.4.19",
