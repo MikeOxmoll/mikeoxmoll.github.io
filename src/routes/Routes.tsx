@@ -15,8 +15,8 @@ const routes: RouteType[] = [
     {name: "Community", path:"/"},
 ]
 
-const baseURL = "http://localhost:8080";
-// const baseURL = "http://boufon.ddns.net";
+// const baseURL = "http://localhost:8080";
+const baseURL = "http://boufon.ddns.net";
 const buildMediaVideoUrl = (params?:string):string => {
     const url = baseURL + "/media-videos";
     if(params) return url + "/" + params;
