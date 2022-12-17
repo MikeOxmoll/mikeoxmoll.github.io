@@ -68,7 +68,7 @@ const HomePage: React.FC = (props) => {
 
 
                 <div className={"flex space-x-3"}>
-                    {categories && categories.map((category:CategoryType) => {
+                    {categories && categories.sort(() => 0.5 - Math.random()).slice(0, 7).map((category:CategoryType) => {
                         return (
                             <>
                                 <CategorieTag category={category}/>

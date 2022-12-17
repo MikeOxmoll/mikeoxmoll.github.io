@@ -9,7 +9,7 @@ const PageLayout:React.FC<PageLayoutProps> = ({ children }) => {
         return (
             <div className={"bg-white space-y-4 flex flex-col overflow-scroll"}>
                 <Navbar/>
-                <div className={"px-48 h-screen"}>
+                <div className={"px-48 "}>
                     {children}
                 </div>
 

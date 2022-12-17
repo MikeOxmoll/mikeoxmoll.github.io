@@ -38,7 +38,7 @@ const SignUpPage: React.FC = (props) => {
             username: '',
             name: '',
             password: '',
-            id_profile_picture:'user-pfp-bouffon.jpg',
+            id_profile_picture:'',
         },
         validationSchema:signUpSchema,
         onSubmit: values => {

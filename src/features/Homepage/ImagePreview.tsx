@@ -48,7 +48,7 @@ const ImagePreview:React.FC<ImagePreviewType> = ({image}) => {
     }
     return (
 
-        <div className={'bg-black flex flex-col max-w-sm w-full space-y-0.5 '}>
+        <div className={'flex flex-col max-w-sm w-full space-y-0.5 hover:shadow rounded-md'}>
             <div className={"relative"}>
                 <img
                     src={`${buildMediaImageUrl(image.fileName)}`}
@@ -56,13 +56,7 @@ const ImagePreview:React.FC<ImagePreviewType> = ({image}) => {
                     className={"object-fill w-full aspect-image cursor-pointer"}
                     onClick={navigateToImage}
                 />
-                {/*<div className={"absolute bottom-2 flex w-full justify-end space-x-3 pr-2"}>*/}
-                {/*    <ImagePreviewTag time={image.duration}/>*/}
-                {/*    /!*<ImagePreviewTag/>*!/*/}
-                {/*</div>*/}
             </div>
-
-
 
             <div className={"flex text-secWhite/80"}>
                 <div className={"flex-grow"}>
@@ -74,14 +68,9 @@ const ImagePreview:React.FC<ImagePreviewType> = ({image}) => {
                 </div>
 
                 <div className={"flex space-x-3 text-xs"}>
-
                     <div className={"flex space-x-1 items-center"}>
                         <ViewsLogo className={"w-4 fill-secWhite/60"}/>
-                        {/*<span className={" "}>*/}
-                        {/*        {image.nbViews} Views*/}
-                        {/*    </span>*/}
                     </div>
-
                     <div className={"flex space-x-1 items-center"}>
                         <LikesLogo className={"w-4 fill-secWhite/60"}/>
                         <span className={"flex"}>
