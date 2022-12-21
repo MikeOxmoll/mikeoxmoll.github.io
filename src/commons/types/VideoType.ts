@@ -33,7 +33,8 @@ enum CategoryDomType {
 export interface CategoryType {
     id: string,
     name: string,
-    type: CategoryDomType,
-    numberVideos: number,
+    type: string,
+    authorId: string,
+    idThumbnailImage:string
 }
 

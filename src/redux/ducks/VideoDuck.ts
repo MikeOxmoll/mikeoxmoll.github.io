@@ -1,4 +1,4 @@
-import {VideoType} from "../../commons/types/VideoType";
+import {RessourceType, VideoType} from "../../commons/types/VideoType";
 import {VideoUploadType} from "../../commons/types/UploadTypes";
 
 export const videoActions = {
@@ -11,6 +11,9 @@ export const videoActions = {
     POST_VIDEO: "POST_VIDEO",
     SET_POST_VIDEO_SUCCESS: "SET_POST_VIDEO_SUCCESS",
     SET_POST_VIDEO_ERROR: "SET_POST_VIDEO_ERROR",
+    GET_VIDEOS_BY_PARAM: "GET_VIDEOS_BY_PARAM",
+    SET_GET_VIDEOS_BY_PARAM_SUCCESS: "SET_GET_VIDEOS_BY_PARAM_SUCCESS",
+    SET_GET_VIDEOS_BY_PARAM_ERROR: "SET_GET_VIDEOS_BY_PARAM_ERROR",
 }
 /*
 Exports relating to a get request of a single video
@@ -65,8 +68,10 @@ export const setGetVideoError = () => ({
 const getVideoReducer = (state = initialGetVideoState, action:getVideoActionType) => {
     switch (action.type) {
         case videoActions.GET_VIDEO:{
+            const {videoId} = action.payload;
             const newState = {
                 ...state,
+                videoId,
                 isLoading: true,
                 isError:false
             }
@@ -96,6 +101,7 @@ const getVideoReducer = (state = initialGetVideoState, action:getVideoActionType
         }
     }
 }
+
 /*
 Exports relating to a get request of a multiple videos
  */
@@ -256,8 +262,93 @@ const postVideoReducer = (state = initialPostVideosState, action:PostVideoAction
     }
 }
 
+/*
+Exports relating to a get request of a list of video with parameters
+ */
+export interface RessourceRequestParamsType {
+    ressourceId?:string,
+    ressourceCategoryIds?:string[],
+    ressourceCategoryNames?:string[],
+    ressourceAuthorId?:string[],
+}
+
+export interface GetVideoByParamRequestStateType {
+    videos?: VideoType[],
+    videoRequestParams?: RessourceRequestParamsType,
+    isLoading: boolean,
+    isError: boolean,
+}
+
+const initialGetVideosByParamState:GetVideoByParamRequestStateType = {
+    isLoading:false,
+    isError:false,
+}
+
+interface getVideosByParamActionType {
+    type: string,
+    payload: {
+        videos?: VideoType[]
+        videoRequestParams: RessourceRequestParamsType,
+    }
+}
+
+export const fetchVideosByParam = (videoRequestParams: RessourceRequestParamsType) => ({
+    type: videoActions.GET_VIDEOS_BY_PARAM,
+    payload:{
+        videoRequestParams: videoRequestParams
+    }
+})
+
+export const setGetVideosByParamSuccess = (videos: VideoType[], videoRequestParams: RessourceRequestParamsType) => ({
+    type: videoActions.SET_GET_VIDEOS_BY_PARAM_SUCCESS,
+    payload: {
+        videos,videoRequestParams
+    }
+})
+
+export const setGetVideosByParamError = () => ({
+    type: videoActions.SET_GET_VIDEOS_BY_PARAM_ERROR,
+})
+
+const getVideosByParamReducer = (state = initialGetVideosByParamState, action:getVideosByParamActionType) => {
+    switch (action.type) {
+        case videoActions.GET_VIDEOS_BY_PARAM:{
+            const newState = {
+                ...state,
+                isLoading: true,
+                isError:false
+            }
+            return newState;
+        }
+
+        case videoActions.SET_GET_VIDEOS_BY_PARAM_SUCCESS:{
+            const {videos} = action.payload;
+            const newState = {...state,
+                videos,
+                isLoading: false,
+                isError:false
+            }
+            return newState;
+        }
+
+        case videoActions.SET_GET_VIDEOS_BY_PARAM_ERROR:{
+            const newState = {...state,
+                isLoading: false,
+                isError:true
+            }
+            return newState;
+        }
+
+        default: {
+            return state;
+        }
+    }
+}
+
+
 export {
     getVideosReducer,
     getVideoReducer,
-    postVideoReducer
+    postVideoReducer,
+    getVideosByParamReducer
 }
