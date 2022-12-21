@@ -1,7 +1,7 @@
 import { combineReducers, applyMiddleware } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
-import {getVideoReducer, getVideosReducer, postVideoReducer} from "./ducks/VideoDuck";
-import {userReducer} from "./ducks/UserDuck";
+import {getVideoReducer, getVideosByParamReducer, getVideosReducer, postVideoReducer} from "./ducks/VideoDuck";
+import {getUserByUsernameReducer, getUsersReducer, userReducer} from "./ducks/UserDuck";
 import {categoriesReducer, categoryReducer} from "./ducks/CategoryDuck";
 import CreateSagaMiddleware from 'redux-saga'
 import {watchSaga} from "../Sagas/rootSaga";
@@ -15,11 +15,14 @@ const reducers = combineReducers({
     videos:getVideosReducer,
     postVideo:postVideoReducer,
     user:userReducer,
+    users:getUsersReducer,
     category:categoryReducer,
     categories:categoriesReducer,
     image:getImageReducer,
     images:getImagesReducer,
     postImage:getImageReducer,
+    userByUsername:getUserByUsernameReducer,
+    videosByParam:getVideosByParamReducer
 });
 
 const store = configureStore({

@@ -88,11 +88,20 @@ const UploadMediaPage:React.FC = (props) => {
             </div>
         )
     }
+    const getFileExtension = ( fileName:string) => {
+        const str:string[] = fileName.split(".");
+        return str.pop();
+    }
+
     const getFileName = ( fileName:string) => {
         const str:string[] = fileName.split(".");
         str.pop();
-        const returnStr = str.join()+"-thumb.png";
+        const returnStr = str.join().replace(/[^A-Za-z0-9]/g, "").replace(/\s/g, "");
         return returnStr;
+    }
+
+    const getThumbFileName = ( fileName:string) => {
+        return getFileName(fileName) + "-thumb.png";
     }
 
     function randomNumberInRange(min: number, max: number ) {
@@ -110,9 +119,9 @@ const UploadMediaPage:React.FC = (props) => {
                 description:ressourceValues.description,
                 categoryIds:ressourceValues.categoryIds,
                 isPrivate:false,
-                fileName:meta.name,
+                fileName:getFileName(meta.name)+"."+getFileExtension(meta.name),
                 nbViews:randomNumberInRange(1000, 9000000),
-                idThumbnailImage:getFileName(meta.name),
+                idThumbnailImage:getThumbFileName(meta.name),
                 duration:meta.duration,
                 uploadDate:Date.now(),
             }
@@ -122,9 +131,7 @@ const UploadMediaPage:React.FC = (props) => {
 
     }
     const onImageUpload = (meta:any, file:any, status:string) =>{
-        console.log("Starting image post")
         if(status === 'done' && meta.uploadedDate && meta.name && ressourceValues){
-            console.log("Ready to post image")
             const imageUpload:ImageUploadType= {
                 id:"",
                 id_author:user.id_author,
@@ -198,7 +205,7 @@ const UploadMediaPage:React.FC = (props) => {
                                         }/>
                                     </div>
 
-                                    <button className={"bg-primary text-white rounded-md h-10"} type="submit">Submit</button>
+                                    <button className={"bg-primary text-white rounded-md h-10"} type="submit">Go to next step</button>
                                 </div>
 
                             </form>

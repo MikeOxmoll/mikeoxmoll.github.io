@@ -12,6 +12,10 @@ export const ProtectedRoute:React.FC<{ children: ReactNode, accessRoles:string[]
     const { onLogin, onLogout,token,user,isUserAuthenticated } = useContext(AuthContext);
 
 
+
+    console.log("token")
+    console.log(token)
+    console.log(isUserAuthenticated)
     isUserAuthenticated && console.log("is auth")
     !isUserAuthenticated && console.log("is not auth")
     if(!isUserAuthenticated){
@@ -22,6 +26,7 @@ export const ProtectedRoute:React.FC<{ children: ReactNode, accessRoles:string[]
         )
     }
     const hasRequiredRole = user && accessRoles.includes(user.role)
+    console.log("user")
     console.log(user)
     if(!hasRequiredRole){
         return (

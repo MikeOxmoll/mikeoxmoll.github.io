@@ -19,7 +19,7 @@ const UploadMediaButton:React.FC<UploadMediaButtonType> = ({Icon, title, redirec
         <div className={"flex flex-col  hover:border hover:border-primary w-2/6 rounded-md cursor-pointer"}
              onClick={() => handleClick()}
         >
-            <div className={"px-4 flex-grow"}>
+            <div className={"px-4 flex-grow fill-primary"}>
                 {Icon}
             </div>
 
@@ -37,7 +37,7 @@ class DashBoardPage extends Component {
             <PageLayout>
                 <div className={"flex space-x-20 justify-center "}>
                     <UploadMediaButton
-                        Icon={<VideoUploadLogo className={"fill-black w-full h-full"}/>}
+                        Icon={<VideoUploadLogo className={" w-full h-full"}/>}
                         title={"Upload a video"}
                         redirectUrl={"/upload?uploadType=video"}
                     />

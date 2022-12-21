@@ -1,4 +1,5 @@
 import React from "react";
+import {RessourceRequestParamsType} from "../redux/ducks/VideoDuck";
 
 
 interface RouteType {
@@ -8,27 +9,35 @@ interface RouteType {
 }
 const routes: RouteType[] = [
     {name: "Home", path:"/"},
+    {name: "Porn Videos", path:"/catalog"},
     {name: "Categories", path:"/categories"},
-    {name: "Live Authors", path:"/live-cams"},
-    {name: "Authors", path:"/pornstars"},
-    // {name: "Veux Baiser", path:"/"},
-    {name: "Community", path:"/"},
+    {name: "Pornstars", path:"/pornstars"},
+    {name: "Veux Baiser", path:"/julien_baiser"},
+    {name: "Community", path:"/community"},
 ]
 
-// const baseURL = "http://localhost:8080";
-const baseURL = "http://boufon.ddns.net";
+const headerLinks: RouteType[] = [
+    {name: "SpiceVids", path:"/"},
+    {name: "CIRST", path:"/categories"},
+    {name: "RacisteHub", path:"/julien_baiser"},
+    {name: "JJC", path:"/"},
+    {name: "IleDeMerde", path:"/"},
+    {name: "Julien", path:"/"},
+    {name: "Anne Math", path:"/"},
+    {name: "Zorbal", path:"/"},
+    {name: "Cherif", path:"/"},
+    {name: "Trust & Safety", path:"/"},
+    {name: "En", path:"/"},
+]
+const baseURL = "http://localhost:8080";
+
 const buildMediaVideoUrl = (params?:string):string => {
     const url = baseURL + "/media-videos";
     if(params) return url + "/" + params;
     console.log(url)
     return url;
 }
-// const mediaImageUrl = baseURL + "/media-images";
-// const videoUrl = baseURL + "/videos";
-// const imageUrl = baseURL + "/images";
-// const categoryUrl = baseURL + "/categories";
-// const userUrl = baseURL + "/users";
-// const tokenUrl = baseURL + "/token";
+
 
 const buildMediaImageUrl = (params?:string):string => {
     const url = baseURL + "/media-images";
@@ -38,6 +47,19 @@ const buildMediaImageUrl = (params?:string):string => {
 const buildVideoUrl = (params?:string):string => {
     const url = baseURL + "/videos";
     if(params) return url + "/" + params;
+    return url;
+}
+const buildVideoUrlWithParams = (videoRequestParams: RessourceRequestParamsType):string => {
+    const url = baseURL + "/videos";
+    if(videoRequestParams.ressourceAuthorId) return baseURL + "/videos-autho/" + videoRequestParams.ressourceAuthorId;
+    if(videoRequestParams.ressourceCategoryIds) {
+        console.log("Getting videos by Cat Ids")
+        console.log(videoRequestParams.ressourceCategoryIds)
+        let url = baseURL + "/videos-cats/" + videoRequestParams.ressourceCategoryIds;
+        // videoRequestParams.ressourceCategoryIds.map(catName=>{ catName })
+
+        return url;
+    }
     return url;
 }
 const buildImageUrl = (params?:string):string => {
@@ -52,6 +74,11 @@ const buildCategoryUrl = (params?:string):string => {
 }
 const buildUserUrl = (params?:string):string => {
     const url = baseURL + "/users";
+    if(params) return url + "/" + params;
+    return url;
+}
+const buildUserByUsernameUrl = (params?:string):string => {
+    const url = baseURL + "/users-username";
     if(params) return url + "/" + params;
     return url;
 }
@@ -70,11 +97,14 @@ export {
     buildMediaVideoUrl,
     buildMediaImageUrl,
     routes,
+    headerLinks,
     buildUserUrl,
     buildCategoryUrl,
     buildVideoUrl,
     buildImageUrl,
     buildTokenUrl,
-    buildSignUpUrl
+    buildSignUpUrl,
+    buildUserByUsernameUrl,
+    buildVideoUrlWithParams,
 };
 export type { RouteType };

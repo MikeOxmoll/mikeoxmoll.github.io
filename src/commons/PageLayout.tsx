@@ -7,11 +7,14 @@ interface PageLayoutProps {
 
 const PageLayout:React.FC<PageLayoutProps> = ({ children }) => {
         return (
-            <div className={"bg-white space-y-4 flex flex-col overflow-scroll"}>
+            <div className={"bg-black space-y-4 flex flex-col overflow-scroll"}>
                 <Navbar/>
-                <div className={"px-48 "}>
-                    {children}
+                <div className={"flex flex-grow justify-center"}>
+                    <div className={"max-w-max-content flex-grow"}>
+                        {children}
+                    </div>
                 </div>
+
 
                 <div className={"h-1/5"}>
                     <Footbar/>

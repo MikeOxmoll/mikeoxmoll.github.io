@@ -49,7 +49,7 @@ const SignUpPage: React.FC = (props) => {
     return (
 
     <div className={"flex flex-col items-center w-full h-full justify-center bg-gradient-to-r from-primary to-primary/30"}>
-        <div className={"w-2/5 bg-white py-10 px-10 drop-shadow-2xl"}>
+        <div className={"bg-white py-10 px-10 drop-shadow-2xl"}>
             <FormikProvider  value={formik}>
                 <form noValidate onSubmit={formik.handleSubmit}>
                     <div className={"flex flex-col space-y-5 w-full flex-grow"}>

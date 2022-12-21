@@ -3,9 +3,6 @@ import {Player} from "react-tuby";
 import "react-tuby/css/main.css";
 import {baseURL, buildMediaVideoUrl} from "../routes/Routes";
 const VideoPlayer:React.FC<{url?: string}> = ({url}) => {
-
-console.log("url :")
-console.log(url)
     const builtUrl = buildMediaVideoUrl(url)
     return (
         <div>

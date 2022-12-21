@@ -39,7 +39,6 @@ const DropZoneLayout = (props: ILayoutProps) => {
     const {
         maxFiles
     } = extra
-    console.log(props)
     useEffect(() => {
 
     }, [files])
@@ -104,12 +103,11 @@ const Drop:React.FC<DropType> = ({url,handleRessourcePost, acceptSchema}) => {
     // @ts-ignore
     const handleChangeStatus = ({ meta, file }, status) => {
         setDropStatus(status);
-        console.log("Handling ressource post")
         handleRessourcePost(meta, file, status);
     }
 
     return (
-        <div className={"bg-secWhite rounded-md py-3 px-3"}>
+        <div className={"bg-primGrey rounded-md py-3 px-3"}>
             <Dropzone
                 getUploadParams={getUploadParams}
                 onChangeStatus={handleChangeStatus}

@@ -7,6 +7,9 @@ import {buildSignUpUrl, buildTokenUrl, buildVideoUrl} from "./Routes";
 import {UserType} from "../commons/types/VideoType";
 import {setFlagsFromString} from "v8";
 import signUpPage from "../pages/SignUpPage";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchVideos} from "../redux/ducks/VideoDuck";
+import {fetchUser, fetchUserByUsername} from "../redux/ducks/UserDuck";
 
 interface DefaultValueType {
     token?:string,
@@ -26,10 +29,20 @@ export const AuthContext = React.createContext(defaultValue);
 export const AuthProvider:React.FC<{ children: ReactNode }> = ({ children }) => {
 
     const [cookies, setCookie] = useCookies(['access_token']);
-    const [user, setUser] = useState<UserType>();
+    //const [user, setUser] = useState<UserType>();
     const [isUserAuthenticated, setIsUserAuthenticated] = useState<boolean>(false);
     const navigate = useNavigate();
     const token = cookies.access_token;
+
+    const {
+        user,
+        isLoading,
+        isError,
+    } = useSelector((state: any) => state.userByUsername)
+    const dispatch = useDispatch();
+    const handleFetchUser = (userId:string) => {
+        dispatch(fetchUserByUsername(userId));
+    }
 
     useEffect(() => {
         console.log(token);
@@ -52,14 +65,14 @@ export const AuthProvider:React.FC<{ children: ReactNode }> = ({ children }) => 
                 ...signUpPayload
             }
         }).then(response => {
-            const token  =  response.data.token;
-            const user:UserType = response.data.user;
-            setUser(user);
-            const expires = (response.data.expires_in || 60 * 60) * 1000
-            const inOneHour = new Date(new Date().getTime() + expires)
-            setCookie("access_token", token, {
-                expires: inOneHour
-            });
+            // const token  =  response.data.token;
+            // const user:UserType = response.data.user;
+            // setUser(user);
+            // const expires = (response.data.expires_in || 60 * 60) * 1000
+            // const inOneHour = new Date(new Date().getTime() + expires)
+            // setCookie("access_token", token, {
+            //     expires: inOneHour
+            // });
             handleLogout();
             // setIsUserAuthenticated(true);
             // navigate('/')
@@ -82,9 +95,10 @@ export const AuthProvider:React.FC<{ children: ReactNode }> = ({ children }) => 
                     ...loginPayload
                 }
         }).then(response => {
+            handleFetchUser(usernmame);
             const token  =  response.data.token;
             const user:UserType = response.data.user;
-            setUser(user);
+            // setUser(user);
             const expires = (response.data.expires_in || 60 * 60) * 1000
             const inOneHour = new Date(new Date().getTime() + expires)
             setCookie("access_token", token, {
@@ -112,7 +126,7 @@ export const AuthProvider:React.FC<{ children: ReactNode }> = ({ children }) => 
         onLogout: handleLogout,
         onSignUp:handleSignUp,
         user,
-        isUserAuthenticated,
+        isUserAuthenticated: (isUserAuthenticated || (token && token !== "null")) ,
     };
 
     return (

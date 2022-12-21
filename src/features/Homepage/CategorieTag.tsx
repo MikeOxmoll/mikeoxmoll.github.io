@@ -5,8 +5,8 @@ export interface CategorieTagType {
 }
 const CategorieTag:React.FC<CategorieTagType> = ({category}) => {
         return (
-            <div className={"rounded-3xl border border-secWhite/10 bg-secWhite px-3 py-1"}>
-                <span className={"text-primary/80"}
+            <div className={"rounded-3xl border border-secWhite/10 bg-secGrey px-3 py-1"}>
+                <span className={"text-secWhite"}
                 >{category.name}</span>
             </div>
         );

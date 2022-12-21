@@ -18,22 +18,28 @@ interface VideoPreviewTagType {
 
 const VideoPreviewTag:React.FC<VideoPreviewTagType> = ({time}) => {
     return (
-        <div className={"bg-black/70 flex justify-center text-secWhite/80 text-sm px-0.5"}>
+        <div className={"bg-black/70 flex justify-center text-secWhite font-medium  text-sm px-0.5"}>
             {formatSeconds(time)}
         </div>
     )
 }
 
+const getViewFormat = (nbViews: number):string => {
+    if(nbViews >= 1000000){
+
+        const value = (Math.round(nbViews / 1000000).toFixed(1));
+        return value+"M";
+    }
+    if(nbViews >= 1000){
+        const value = (Math.round(nbViews / 1000).toFixed(0));;
+        return value+"K";
+    }
+    return nbViews+"";
+}
+
 const VideoPreview:React.FC<VideoPreviewType> = ({video}) => {
     const navigate = useNavigate();
-    const {
-        user,
-        isLoading,
-        isError,
-    } = useSelector((state: any) => state.user)
-
     const state = useSelector((state: userRequestStateType) => state)
-
     const dispatch = useDispatch();
     const handleFetchUser = () => {
         dispatch(fetchUser(video.id_author));
@@ -42,60 +48,44 @@ const VideoPreview:React.FC<VideoPreviewType> = ({video}) => {
         handleFetchUser();
     }, [])
     const navigateToVideo = () => {
-        navigate("view_video?videoId="+video.id);
+        navigate("/view_video?videoId="+video.id);
     }
     const navigateToAuthor = () => {
-        navigate("users?userId="+user.username);
+        navigate("/user_profile?username="+video.authorName);
     }
     return (
 
             <div className={'flex flex-col max-w-sm w-full space-y-0.5 min-w-full'}>
-                <div className={"relative rounded-md"}>
+                <div className={"relative"}>
                     <img
                         src={`${buildMediaImageUrl(video.idThumbnailImage)}`}
                         alt="new"
-                        className={"object-fill w-full aspect-video cursor-pointer rounded-md"}
+                        className={"object-contain bg-primGrey w-full aspect-video cursor-pointer "}
                         onClick={navigateToVideo}
                     />
                     <div className={"absolute bottom-2 flex w-full justify-end space-x-3 pr-2"}>
                         <VideoPreviewTag time={video.duration}/>
-                        {/*<VideoPreviewTag/>*/}
                     </div>
                 </div>
-
-
-
-                <div className={"flex text-secGrey/80"}>
-                    <div className={"flex-grow"}>
-                        {user && user.username &&
-                            <span className={" cursor-pointer w-min"} onClick={navigateToAuthor}>
-                        {user.username}
+                <div className={"flex text-secWhite justify-self-end"}>
+                    <div className={"flex flex-grow space-x-1 text-sm"}>
+                        <CheckLogo className={"w-3"}/>
+                        <span className={" cursor-pointer w-min"} onClick={navigateToAuthor}>
+                        {video.authorName}
                         </span>
-                        }
                     </div>
 
                     <div className={"flex space-x-3 text-xs"}>
-
                         <div className={"flex space-x-1 items-center"}>
-                            <ViewsLogo className={"w-4 fill-secGrey/60"}/>
+                            <ViewsLogo className={"w-4 fill-secWhite/60"}/>
                             <span className={" "}>
-                                {video.nbViews} Views
+                                {getViewFormat(video.nbViews)} Views
                             </span>
                         </div>
-
-                        <div className={"flex space-x-1 items-center"}>
-                            <LikesLogo className={"w-4 fill-secGrey/60"}/>
-                            <span className={"flex"}>
-                                90%
-                            </span>
-                        </div>
-
 
                     </div>
                 </div>
-
-
-                <span className={"text-secGrey/80 cursor-pointer "} onClick={navigateToVideo}>
+                <span className={"text-secWhite/80 cursor-pointer "} onClick={navigateToVideo}>
                     {video.title}
                 </span>
             </div>

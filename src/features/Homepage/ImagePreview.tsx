@@ -58,7 +58,7 @@ const ImagePreview:React.FC<ImagePreviewType> = ({image}) => {
                 />
             </div>
 
-            <div className={"flex text-secWhite/80"}>
+            <div className={"flex text-black/80"}>
                 <div className={"flex-grow"}>
                     {user && user.username &&
                         <span className={" cursor-pointer w-min"} onClick={navigateToAuthor}>
@@ -83,7 +83,7 @@ const ImagePreview:React.FC<ImagePreviewType> = ({image}) => {
             </div>
 
 
-            <span className={"text-secWhite/80 cursor-pointer "} onClick={navigateToImage}>
+            <span className={"text-black/80 cursor-pointer "} onClick={navigateToImage}>
                     {image.title}
                 </span>
         </div>
