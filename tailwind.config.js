@@ -7,11 +7,14 @@ module.exports = {
 
     extend: {
       colors: {
-        primary: '#1a94ff',
+        primary: '#FFA31A',
         primGrey: '#1B1B1B',
         secGrey: '#262626',
         secWhite: '#F5F5F5',
       },
+      maxWidth: {
+        'max-content': '1323px',
+      }
     },
   },
   plugins: [],
