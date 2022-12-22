@@ -73,7 +73,7 @@ const UserSettingsDropdown:React.FC = () => {
                             <span className={"font-semibold text-secWhite"}>Welcome <button><span className={"text-primary"}>{user?.username}</span></button></span>
                         </div>
                         <SettingElement title={"My Profile"}
-                                        redirectPath={`/user_profile?username=${user?.id_author}`}
+                                        redirectPath={`/user_profile?username=${user?.username}`}
                                         icon={<UserIcon className={"w-5"}/>}/>
                         <SettingElement title={"My Profile"} redirectPath={""} icon={<VideoCameraIcon className={"w-5"}/>}/>
                         <SettingElement title={"Log Out"} redirectPath={"/logout"} icon={<ArrowRightOnRectangleIcon className={"w-5"}/>}/>

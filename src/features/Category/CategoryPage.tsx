@@ -8,9 +8,9 @@ import {EditImageModal} from "../Profile/ProfilePage";
 const categoryTypes = ["Actions","Attributes","Ethnicite","Partners","Scenario"]
 
 const CategoryPreview:React.FC<{category:CategoryType,onClick:()=>void }> = ({category}) => {
-    const navite = useNavigate();
+    const navigate = useNavigate();
     const navigateToCategory = () => {
-        navite("/catalog?category="+category.id)
+        navigate("/catalog?categoryId="+category.id)
     }
     return (
         <button className={"mr-7 mb-7 relative"}>
@@ -30,9 +30,9 @@ const CategoryPreview:React.FC<{category:CategoryType,onClick:()=>void }> = ({ca
     )
 }
 const EditableCategoryPreview:React.FC<{category:CategoryType, onClick:()=>void }> = ({category, onClick}) => {
-    const navite = useNavigate();
+    const navigate = useNavigate();
     const navigateToCategory = () => {
-        navite("/catalog?category="+category.id)
+        navigate("/catalog?categoryId="+category.id)
     }
     return (
         // <div className={"bg-white w-full px-4 py-4"} style={{ backgroundImage: `url("${buildMediaImageUrl(category.IdThumbnailImage)}")` }}>

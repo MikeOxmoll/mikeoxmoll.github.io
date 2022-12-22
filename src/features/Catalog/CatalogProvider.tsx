@@ -7,6 +7,7 @@ import {
     RessourceRequestParamsType
 } from "../../redux/ducks/VideoDuck";
 import {fetchCategories} from "../../redux/ducks/CategoryDuck";
+import {useSearchParams} from "react-router-dom";
 
 interface DefaultValueType {
     videosState?: GetVideoByParamRequestStateType;
@@ -22,20 +23,21 @@ export const CatalogContext = React.createContext<DefaultValueType>();
 
 export const CatalogProvider:React.FC<{ children:ReactNode }> = ({ children }) => {
     const [ressourceType, setRessourceType] = useState("video");
-    const [selectedCategories, setSelectedCategories] = useState<CategoryType[]>([]);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const categoryIdParam = searchParams.get("categoryId");
 
     const {
         categories,
     } = useSelector((state: any) => state.categories);
-
+    const allCategories = categories as CategoryType[] | undefined;
+    const paramCategory = allCategories ? allCategories.filter(cat => cat.id === categoryIdParam) : [];
+    const [selectedCategories, setSelectedCategories] = useState<CategoryType[]>(paramCategory);
     const videosState = useSelector((state: any) => state.videosByParam)
-    // const initialVideoRequestParams:RessourceRequestParamsType ={
-    //     ressourceCategoryIds:selectedCategories.map(cat => {
-    //         return cat.name
-    //     })
-    // }
+    const initialVideoRequestParams:RessourceRequestParamsType = categoryIdParam ? {
+        ressourceCategoryIds:[categoryIdParam]
+    } : {}
 
-    const [videoRequestParams, setVideoRequestParams] = useState<RessourceRequestParamsType>({});
+    const [videoRequestParams, setVideoRequestParams] = useState<RessourceRequestParamsType>(initialVideoRequestParams);
     // const [videoRequestParams, setVideoRequestParams] = useState<RessourceRequestParamsType>({ressourceCategoryIds:["attr-pdf(petabledefou)", "attr-gay"]});
 
 
@@ -57,8 +59,7 @@ export const CatalogProvider:React.FC<{ children:ReactNode }> = ({ children }) =
     const onSelectRessourceType = (type:string) => {
         setRessourceType(type)
     }
-    console.log("videosState")
-    console.log(videosState)
+
     const onToggleCategory = (categoryId:string) => {
         if(selectedCategories.find(cat => cat.id == categoryId)){
             const newCategories = selectedCategories.filter(cat => cat.id !== categoryId);

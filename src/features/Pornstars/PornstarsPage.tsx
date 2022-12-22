@@ -74,7 +74,7 @@ const PornstarsPage:React.FC = () => {
         <PageLayout>
             <div>
                 <span className={"text-secWhite text-2xl"}>This Month's Most Popular Buffons</span>
-                <div>
+                <div className={"grid grid-cols-4 gap-4"}>
                     { allUsers.map(user => {
                         return (
                             <UserPreview user={user}/>

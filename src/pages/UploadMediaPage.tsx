@@ -96,7 +96,7 @@ const UploadMediaPage:React.FC = (props) => {
     const getFileName = ( fileName:string) => {
         const str:string[] = fileName.split(".");
         str.pop();
-        const returnStr = str.join().replace(/[^A-Za-z0-9]/g, "").replace(/\s/g, "");
+        const returnStr = str.join().replace(/[^a-z0-9 -]/gi, '').replace(/\s/g, "");
         return returnStr;
     }
 
@@ -140,7 +140,7 @@ const UploadMediaPage:React.FC = (props) => {
                 description:ressourceValues.description,
                 categoryIds:ressourceValues.categoryIds,
                 isPrivate:false,
-                fileName:meta.name,
+                fileName:getFileName(meta.name)+"."+getFileExtension(meta.name),
                 uploadDate:Date.now(),
             }
             handlePostImage(imageUpload);

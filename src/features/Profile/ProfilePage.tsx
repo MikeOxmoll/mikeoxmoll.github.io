@@ -1,6 +1,6 @@
-import React, {Component, useContext, useState} from 'react';
+import React, {Component, useContext, useEffect, useState} from 'react';
 import {AuthContext} from "../../routes/AuthProvider";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {buildMediaImageUrl} from "../../routes/Routes";
 import PageLayout from "../../commons/PageLayout";
 import {VideoCataloger} from "../../pages/ContentCatalogPage";
@@ -8,6 +8,8 @@ import {UserType} from "../../commons/types/VideoType";
 import { Dialog } from '@headlessui/react'
 import Drop from "../../components/Drop";
 import {ImageUploadType} from "../../commons/types/UploadTypes";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchUserByUsername} from "../../redux/ducks/UserDuck";
 
 
 
@@ -96,14 +98,26 @@ const AchievementView:React.FC = () => {
     )
 }
 const ProfilePage: React.FC = () => {
-    const { onLogin, onLogout, token, isUserAuthenticated, user } = useContext(AuthContext);
-
-    const navigate = useNavigate();
-    const userPfpUrl = user && user.username==="fuckmeimdumb" ? buildMediaImageUrl(user.id_profile_picture)  : "src/assets/camera.svg";
-
+    const [searchParams, setSearchParams] = useSearchParams();
     const [contentView, setContentView] = useState(<VideoCataloger/>)
     const [contentViewTitle, setContentViewTitle] = useState("content")
     const [isModalOpen,setIsModalOpen] = useState(false)
+
+    const username = searchParams.get("username");
+    const navigate = useNavigate();
+    // const userPfpUrl = user && user.username==="fuckmeimdumb" ? buildMediaImageUrl(user.id_profile_picture)  : "src/assets/camera.svg";
+    const {
+        user,
+        isLoading,
+        isError,
+    } = useSelector((state: any) => state.userByUsername);
+    const dispatch = useDispatch();
+    const handleFetchUserByUsername = (userId:string) => {
+        dispatch(fetchUserByUsername(userId))
+    }
+    useEffect(() => {
+        username && handleFetchUserByUsername(username);
+    }, [])
     const changeContentView = (title: string) => {
 
     }

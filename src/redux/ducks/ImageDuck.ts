@@ -1,5 +1,6 @@
 import {ImageType} from "../../commons/types/VideoType";
 import {ImageUploadType} from "../../commons/types/UploadTypes";
+import {RessourceRequestParamsType} from "./VideoDuck";
 
 export const imageActions = {
     GET_IMAGE: "GET_IMAGE",
@@ -11,6 +12,9 @@ export const imageActions = {
     POST_IMAGE: "POST_IMAGE",
     SET_POST_IMAGE_SUCCESS: "SET_POST_IMAGE_SUCCESS",
     SET_POST_IMAGE_ERROR: "SET_POST_IMAGE_ERROR",
+    GET_IMAGES_BY_PARAM: "GET_IMAGES_BY_PARAM",
+    SET_GET_IMAGES_BY_PARAM_SUCCESS: "SET_GET_IMAGES_BY_PARAM_SUCCESS",
+    SET_GET_IMAGES_BY_PARAM_ERROR: "SET_GET_IMAGES_BY_PARAM_ERROR",
 }
 /*
 Exports relating to a get request of a single image
@@ -28,14 +32,6 @@ const initialGetImageState:GetImageRequestStateType = {
     isError:false,
 }
 
-interface getImageActionType {
-    type: string,
-    payload: {
-        image?: ImageType
-        imageId: string
-    }
-}
-//TODO Fix
 interface getImageActionType {
     type: string,
     payload: {
@@ -243,6 +239,79 @@ const postImageReducer = (state = initialPostImagesState, action:PostImageAction
         }
 
         case imageActions.SET_POST_IMAGE_ERROR:{
+            const newState = {...state,
+                isLoading: false,
+                isError:true
+            }
+            return newState;
+        }
+
+        default: {
+            return state;
+        }
+    }
+}
+
+export interface GetImageByParamRequestStateType {
+    images?: ImageType[],
+    imageRequestParams?: RessourceRequestParamsType,
+    isLoading: boolean,
+    isError: boolean,
+}
+
+const initialGetImagesByParamState:GetImageByParamRequestStateType = {
+    isLoading:false,
+    isError:false,
+}
+
+interface getImagesByParamActionType {
+    type: string,
+    payload: {
+        images?: ImageType[]
+        imageRequestParams: RessourceRequestParamsType,
+    }
+}
+
+export const fetchImagesByParam = (imageRequestParams: RessourceRequestParamsType) => ({
+    type: imageActions.GET_IMAGES_BY_PARAM,
+    payload:{
+        imageRequestParams: imageRequestParams
+    }
+})
+
+export const setGetImagesByParamSuccess = (images: ImageType[], imageRequestParams: RessourceRequestParamsType) => ({
+    type: imageActions.SET_GET_IMAGES_BY_PARAM_SUCCESS,
+    payload: {
+        images,imageRequestParams
+    }
+})
+
+export const setGetImagesByParamError = () => ({
+    type: imageActions.SET_GET_IMAGES_BY_PARAM_ERROR,
+})
+
+const getImagesByParamReducer = (state = initialGetImagesByParamState, action:getImagesByParamActionType) => {
+    switch (action.type) {
+        case imageActions.GET_IMAGES_BY_PARAM:{
+            const newState = {
+                ...state,
+                isLoading: true,
+                isError:false
+            }
+            return newState;
+        }
+
+        case imageActions.SET_GET_IMAGES_BY_PARAM_SUCCESS:{
+            const {images} = action.payload;
+            const newState = {...state,
+                images,
+                isLoading: false,
+                isError:false
+            }
+            return newState;
+        }
+
+        case imageActions.SET_GET_IMAGES_BY_PARAM_ERROR:{
             const newState = {...state,
                 isLoading: false,
                 isError:true

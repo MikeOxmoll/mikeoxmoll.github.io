@@ -3,7 +3,7 @@ import {useCookies} from "react-cookie";
 import {useNavigate} from "react-router-dom";
 import {requestGetAuthToken} from "./AuthenticationUtils";
 import axios from "axios";
-import {buildSignUpUrl, buildTokenUrl, buildVideoUrl} from "./Routes";
+import {buildSignUpUrl, buildTokenUrl, buildUserByUsernameUrl, buildVideoUrl} from "./Routes";
 import {UserType} from "../commons/types/VideoType";
 import {setFlagsFromString} from "v8";
 import signUpPage from "../pages/SignUpPage";
@@ -28,20 +28,31 @@ export const AuthContext = React.createContext(defaultValue);
 
 export const AuthProvider:React.FC<{ children: ReactNode }> = ({ children }) => {
 
-    const [cookies, setCookie] = useCookies(['access_token']);
-    //const [user, setUser] = useState<UserType>();
+    const [cookies, setCookie] = useCookies(['access_token', 'is_of_age']);
+    const [user, setUser] = useState<UserType>();
     const [isUserAuthenticated, setIsUserAuthenticated] = useState<boolean>(false);
     const navigate = useNavigate();
     const token = cookies.access_token;
 
-    const {
-        user,
-        isLoading,
-        isError,
-    } = useSelector((state: any) => state.userByUsername)
-    const dispatch = useDispatch();
+    // const {
+    //     user,
+    //     isLoading,
+    //     isError,
+    // } = useSelector((state: any) => state.userByUsername)
+    // const dispatch = useDispatch();
     const handleFetchUser = (userId:string) => {
-        dispatch(fetchUserByUsername(userId));
+        axios.request({
+            method:"get",
+            url: buildUserByUsernameUrl(userId),
+        }).then(response => {
+            const user:UserType = response.data.user;
+            setUser(user);
+            handleLogout();
+        }).catch(err => {
+            setIsUserAuthenticated(false);
+            navigate('/login')
+        });
+
     }
 
     useEffect(() => {
@@ -74,8 +85,6 @@ export const AuthProvider:React.FC<{ children: ReactNode }> = ({ children }) => 
             //     expires: inOneHour
             // });
             handleLogout();
-            // setIsUserAuthenticated(true);
-            // navigate('/')
         })
             .catch(err => {
                 setError(err);
@@ -95,10 +104,10 @@ export const AuthProvider:React.FC<{ children: ReactNode }> = ({ children }) => 
                     ...loginPayload
                 }
         }).then(response => {
-            handleFetchUser(usernmame);
+            // handleFetchUser(usernmame);
             const token  =  response.data.token;
             const user:UserType = response.data.user;
-            // setUser(user);
+            setUser(user);
             const expires = (response.data.expires_in || 60 * 60) * 1000
             const inOneHour = new Date(new Date().getTime() + expires)
             setCookie("access_token", token, {
@@ -109,13 +118,15 @@ export const AuthProvider:React.FC<{ children: ReactNode }> = ({ children }) => 
 
         })
             .catch(err => {
-            setIsUserAuthenticated(false);
-            navigate('/login')
+                setUser(undefined);
+                setIsUserAuthenticated(false);
+                navigate('/login')
         });
     };
 
     const handleLogout = () => {
         setCookie("access_token", null, );
+        setCookie("is_of_age", null, );
         setIsUserAuthenticated(false);
         navigate('/')
     };

@@ -47,16 +47,17 @@ const ViewVideoPage:React.FC = (props) => {
         <div>
             <PageLayout>
                 <div className={"flex w-full space-x-5 px-20"}>
-                    <div className={"w-4/6"}>
+                    <div className={"w-5/6 space-y-5"}>
                         <VideoPlayer url={video.fileName}/>
-                        <div>
-                            {video.title}
+                        <div className={"flex flex-col space-y-3"}>
+                            <span className={"text-secWhite text-2xl"}>{video.title}</span>
+                            <span className={"text-secWhite/80 text-xl"}>{video.description}</span>
                         </div>
                     </div>
 
                     <div className={"flex flex-col w-56 space-y-3.5"}>
                         <div className={"grid grid-cols-1 gap-4"}>
-                            {relatedVideos.map((video: VideoType) => {
+                            {relatedVideos.slice(0,5).map((video: VideoType) => {
                                     return (
                                         <>
                                             <VideoPreview video={video} verticalPreview={false}/>

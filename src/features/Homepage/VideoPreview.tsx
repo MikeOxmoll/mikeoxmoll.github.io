@@ -2,7 +2,7 @@ import React, {Component, useEffect} from 'react';
 import {VideoType} from "../../commons/types/VideoType";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchUser, userRequestStateType} from "../../redux/ducks/UserDuck";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, } from "react-router-dom";
 import  {ReactComponent as CheckLogo}  from '../../assets/check-mark.svg';
 import  {ReactComponent as ViewsLogo}  from '../../assets/eye.svg';
 import  {ReactComponent as LikesLogo}  from '../../assets/thumbs-up.svg';
@@ -39,6 +39,7 @@ const getViewFormat = (nbViews: number):string => {
 
 const VideoPreview:React.FC<VideoPreviewType> = ({video}) => {
     const navigate = useNavigate();
+
     const state = useSelector((state: userRequestStateType) => state)
     const dispatch = useDispatch();
     const handleFetchUser = () => {
@@ -48,10 +49,10 @@ const VideoPreview:React.FC<VideoPreviewType> = ({video}) => {
         handleFetchUser();
     }, [])
     const navigateToVideo = () => {
-        navigate("/view_video?videoId="+video.id);
+        navigate("/view_video?videoId="+video.id, { replace: true });
     }
     const navigateToAuthor = () => {
-        navigate("/user_profile?username="+video.authorName);
+        navigate("/user_profile?username="+video.authorName, { replace: true });
     }
     return (
 
