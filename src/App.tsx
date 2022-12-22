@@ -14,6 +14,7 @@ import {CatalogProvider} from "./features/Catalog/CatalogProvider";
 import ProfilePage from "./features/Profile/ProfilePage";
 import CategoryPage from "./features/Category/CategoryPage";
 import PornstarsPage from "./features/Pornstars/PornstarsPage";
+import CommunityPage from "./pages/CommunityPage";
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
                 <Route path={"/dashboard"} element={<DashBoardPage/>}/>
                 <Route path={"/login"} element={<LoginPage/>}/>
                 <Route path={"/signup"} element={<SignUpPage/>}/>
+                <Route path={"/community"} element={<CommunityPage/>}/>
 
             </Routes>
         </AuthProvider>
